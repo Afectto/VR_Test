@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class MoveCamera : MonoBehaviour
 {
-    public float moveSpeed = 100f; 
-    private float rotationY = 0f;
-    private float rotationX = 0f; 
-    public float rotationSpeed = 5f; 
+    private const float MoveSpeed = 100f;
+    private const float RotationSpeed = 5f;
+    private float _rotationY = 0f;
+    private float _rotationX = 0f; 
     void Update()
     {
         Move();
@@ -16,8 +16,8 @@ public class MoveCamera : MonoBehaviour
 
     private void Move()
     {
-        float horizontal = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-        float vertical = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
+        float horizontal = Input.GetAxis("Horizontal") * MoveSpeed * Time.deltaTime;
+        float vertical = Input.GetAxis("Vertical") * MoveSpeed * Time.deltaTime;
 
         transform.position += new Vector3(horizontal, 0, vertical);
     }
@@ -26,12 +26,12 @@ public class MoveCamera : MonoBehaviour
     {
         if (Input.GetMouseButton(1))
         {
-            rotationY += Input.GetAxis("Mouse X") * rotationSpeed;
-            rotationX -= Input.GetAxis("Mouse Y") * rotationSpeed;
+            _rotationY += Input.GetAxis("Mouse X") * RotationSpeed;
+            _rotationX -= Input.GetAxis("Mouse Y") * RotationSpeed;
 
-            rotationX = Mathf.Clamp(rotationX, -40f, 85f); 
+            _rotationX = Mathf.Clamp(_rotationX, -40f, 85f); 
 
-            Quaternion rotation = Quaternion.Euler(rotationX, rotationY, 0);
+            Quaternion rotation = Quaternion.Euler(_rotationX, _rotationY, 0);
             transform.rotation = rotation;
         }
     }
